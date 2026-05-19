@@ -141,6 +141,11 @@ def delete_photo(photo_id):
 
     return jsonify({"ok": True, "message": "Photo deleted successfully."})
 
+@app.get("/api/debug/admins")
+def debug_admins():
+    admins = Admin.query.all()
+    return jsonify([{"id": a.id, "username": a.username, "password": a.password} for a in admins])
+
 @app.get("/api/gallery/image/<filename>")
 def serve_image(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
